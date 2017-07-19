@@ -9,7 +9,7 @@ from matplotlib import figure
 from PyQt4 import QtGui, QtCore
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
-
+import datetime
 
 class MicrophoneRecorder(object):
     def __init__(self, rate=4000, chunksize=1024):
