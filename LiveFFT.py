@@ -182,6 +182,46 @@ class LiveFFTWidget(QtGui.QWidget):
             print np.amax(fft_frame)
             
             
+            #SOUND ANALYSIS
+            combined = np.vstack((self.freq_vect, np.abs(fft_frame))).T
+            combined2 = np.vstack((self.time_vect, current_frame)).T
+            if np.amax(combined2[1]) > 32000:
+                print 'LOUD SOUND recorded at %s.\n' % (datetime.datetime.now())
+                with open("siren_log.txt", mode='a') as file:
+                     file.write('LOUD SOUND recorded at %s.\n' % (datetime.datetime.now()))
+            #print np.amax(combined2[1])
+            for x in combined:
+                if x[1] == [1.0] and 1400 < x[0] < 1600:
+                    print 'siren 3 (police car) detected recorded at %s.\n' % (datetime.datetime.now())
+                    with open("siren_log.txt", mode='a') as file:
+                        file.write('siren 3 (police car) recorded at %s.\n' % (datetime.datetime.now()))
+            
+            #print combined                
+                    
+            for x in combined:
+                if x[1] == [1.0] and 300 < x[0] < 320:
+                    print 'potential motorbike   detected recorded at %s.\n' % (datetime.datetime.now())
+                    with open("siren_log.txt", mode='a') as file:
+                        file.write('potential motorbike recorded at %s.\n' % (datetime.datetime.now()))
+            for x in combined:
+                if x[1] == [1.0] and 1700 < x[0] < 1750:
+                    print 'siren 2 (fire engine) detected recorded at %s.\n' % (datetime.datetime.now())
+                    with open("siren_log.txt", mode='a') as file:
+                        file.write('siren 2 (fire engine) recorded at %s.\n' % (datetime.datetime.now()))
+            for x in combined:
+                if x[1] == [1.0] and 1200 < x[0] < 2000:
+                    print 'potential siren detected recorded at %s.\n' % (datetime.datetime.now())
+                    with open("siren_log.txt", mode='a') as file:
+                        file.write('potential siren recorded at %s.\n' % (datetime.datetime.now()))
+             
+            
+            #return modal frequency 
+            for x in combined:
+               if x[1] == [1.0]:
+                  print x[0]
+            
+            
+            
         
 
 if __name__ == "__main__":
